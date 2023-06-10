@@ -4,6 +4,7 @@ function ToyForm({ onSubmit }) {
   const [formData, setFormData] = useState({
     name: "",
     image: "",
+    likes: 0,
   });
 
   function handleSubmit(e) {
