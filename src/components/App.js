@@ -14,6 +14,26 @@ function App() {
       .then((toys) => setToys(toys));
   }, []);
 
+  function onLike(toyObj) {
+    const newToys = toys.map((toy) => {
+      if (toy.id === toyObj.id) {
+        return toyObj;
+      } else {
+        return toy;
+      }
+    });
+    setToys(newToys);
+  }
+
+  function onDelete(id) {
+    const newToys = toys.filter((toy) => toy.id !== id);
+    setToys(newToys);
+  }
+
+  function onSubmit(toy) {
+    setToys([...toys, toy]);
+  }
+
   function handleClick() {
     setShowForm((showForm) => !showForm);
   }
@@ -21,11 +41,11 @@ function App() {
   return (
     <>
       <Header />
-      {showForm ? <ToyForm /> : null}
+      {showForm ? <ToyForm onSubmit={onSubmit} /> : null}
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toys={toys} />
+      <ToyContainer toys={toys} onDelete={onDelete} onLike={onLike} />
     </>
   );
 }
